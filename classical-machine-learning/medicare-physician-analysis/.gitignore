@@ -1,0 +1,5 @@
+data/
+*.csv
+!data/sample_*.csv
+.ipynb_checkpoints/
+.DS_Store
