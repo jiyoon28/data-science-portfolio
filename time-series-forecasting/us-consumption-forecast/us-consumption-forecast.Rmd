@@ -1,0 +1,373 @@
+---
+title:  "US Consumption Forecast"
+author: "Jiyoon Moon"
+date:   "Last compiled on:   `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  pdf_document: default
+abstract: This report analyzes quarterly US consumption data using multiple time series models. Both ARIMA-based and regression-based models are evaluated to understand the drivers of consumption and to forecast its behavior in the near future. External variables such as income, production, and unemployment are explored to improve forecast accuracy.
+
+fontsize: 12pt
+header-includes:
+   \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{lmodern}
+  \usepackage{lipsum}
+  \usepackage{fancyhdr}
+  \pagestyle{fancy}
+  \renewcommand{\headrulewidth}{0pt}
+  \fancyhf{}
+  \fancyfoot[C]{\twopagenumbers}
+  \fancypagestyle{plain}{
+    \renewcommand{\headrulewidth}{0pt}
+    \fancyhf{}
+    \fancyfoot[C]{\twopagenumbers}
+  }
+  \usepackage[user]{zref}
+  \newcounter{pageaux}
+  \def\currentauxref{PAGEAUX1}
+  \newcommand{\twopagenumbers}{
+    \stepcounter{pageaux}
+    \thepageaux\, of\, \ref{\currentauxref}
+  }
+  \makeatletter
+  \newcommand{\resetpageaux}{
+    \clearpage
+    \edef\@currentlabel{\thepageaux}\label{\currentauxref}
+    \xdef\currentauxref{PAGEAUX\thepage}
+    \setcounter{pageaux}{0}}
+  \AtEndDvi{\edef\@currentlabel{\thepageaux}\label{\currentauxref}}
+  \makeatletter
+---
+
+<!--
+#########################################################
+###         DO NOT CHANGE the following code          ###
+#########################################################
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+library(fpp2)
+library(forecast)
+library(tseries)
+library(ggplot2)
+library(dplyr)
+data("uschange")
+train <- window(uschange, end=c(2014,4))
+test  <- window(uschange, start=c(2015,1))
+```
+
+\thispagestyle{empty}
+\newpage
+\setcounter{page}{1}
+
+<!--
+#########################################################
+###      Start writing your report from line 61       ###
+#########################################################
+-->
+
+## 1. Time Series Analysis and EDA
+
+```{r fig-consumption-ts, fig.cap="US Consumption Time Series (1970–2014)", echo=FALSE, fig.height=3.5, fig.width=6.5}
+tsdisplay(train[,"Consumption"], main = "Consumption Time Series Diagnostics")
+```
+
+The top panel of Figure 1 shows the time series of US Consumption from 1970 to 2014.
+The series shows no clear seasonality but fluctuates moderately over time, with alternating periods of mild increases and decreases, a sharp dip around 2008–2009 likely due to the Global Financial Crisis, and an overall appearance of stationarity with minor changes in trend and volatility. The ACF shows significant autocorrelation at lags 1 to 3 and then drops off sharply at lag 4, indicating a potential MA(3) structure, while the PACF gradually decreases without a clear cut-off, which is also characteristic of a moving average (MA) process rather than an autoregressive one.
+
+
+```{r fig-consumption-income, fig.cap="Quarterly US Consumption and Income Over Time", echo=FALSE, message=FALSE, fig.show='hold', out.width='49%', fig.height=3, fig.width=5}
+train_df <- as.data.frame(train)
+train_df$Date <- time(train) 
+
+p1 <- ggplot(train_df, aes(x = Date, y = Consumption)) +
+  geom_point(color = "steelblue") +
+  labs(title = "US Consumption") +
+  theme_bw() +
+  theme(axis.text.x = element_text(size = 9),
+        axis.text.y = element_text(size = 9),
+        title = element_text(size = 11))
+
+p2 <- ggplot(train_df, aes(x = Date, y = Income)) +
+  geom_point(color = "darkgreen") +
+  labs(title = "US Income") +
+  theme_bw() +
+  theme(axis.text.x = element_text(size = 9),
+        axis.text.y = element_text(size = 9),
+        title = element_text(size = 11))
+p1
+p2
+```
+
+Figure 2 shows the quarterly evolution of US consumption and income. Consumption remains relatively stable over time, with no clear upward or downward trend. It fluctuates around a consistent level, with noticeable drops around 2008 likely due to the global financial crisis. Income also shows mild variation across quarters, without a strong long-term increase.
+
+## 2. Model 
+### Model 1) ARIMA(0,0,3)
+
+```{r fit-arima-003, include=FALSE}
+fit_ma3 <- Arima(train[,"Consumption"], order = c(0, 0, 3))
+fc_ma3 <- forecast(fit_ma3, h = 7)
+```
+
+```{r fig-arima-003-diagnostics, fig.cap="Residuals and Forecast - ARIMA(0,0,3)", echo=FALSE, fig.show='hold', out.width='49%'}
+tsdisplay(residuals(fit_ma3), main = "Residuals from ARIMA(0,0,3)")
+autoplot(fc_ma3) +
+  autolayer(test[,"Consumption"], series = "Actual") +
+  labs(title = "Forecast using ARIMA(0,0,3)", y = "Consumption", x = "Time") +
+  theme_minimal()
+```
+
+The ACF plot shows a sharp drop after lag 3, while the PACF declines gradually across lags 1 to 3 with no significant spikes beyond, suggesting an MA(3) structure. Based on this, the ARIMA(0,0,3) model was selected. The residuals resemble white noise, indicating a good fit, and the forecast closely matches the actual test values within appropriate prediction intervals. This model is simple, interpretable, and reliable for short-term forecasting, with a training RMSE of about 0.60 and a test RMSE of 0.24.
+
+### Model 2)  ARIMA(3,0,0)(2,0,0)[4]
+
+```{r fit-arima-300-200-4, include=FALSE}
+fit_auto <- auto.arima(train[,"Consumption"])
+fc_auto <- forecast(fit_auto, h = 7)
+```
+
+```{r fig-arima-300-200-4-diagnostics, fig.cap="Residuals and Forecast - ARIMA(3,0,0)(2,0,0)[4]", echo=FALSE, fig.show='hold', out.width='49%'}
+tsdisplay(residuals(fit_auto), main = "Residuals from ARIMA(3,0,0)(2,0,0)[4]")
+autoplot(fc_auto) +
+  autolayer(test[,"Consumption"], series = "Actual") +
+  labs(title = "Forecast from auto.arima", y = "Consumption", x = "Time") +
+  theme_minimal()
+```
+
+The model includes both non-seasonal AR(3) and seasonal AR(2) terms which were selected based on significant PACF spikes at lags 1–3 and the presence of quarterly seasonality. It performs well, with residuals resembling white noise and delivering high forecast accuracy. The ARIMA(3,0,0)(2,0,0)[4] model effectively captures both seasonal and autoregressive dynamics and is suitable for short-term prediction with a test RMSE of approximately 0.27.
+
+
+### Model 3) Regression with ARIMA(1,1,1)(0,0,1)[4] Errors
+
+```{r fit-arimax, include=FALSE}
+xreg_train <- as.matrix(train[, c("Income", "Unemployment")])
+xreg_test <- as.matrix(test[, c("Income", "Unemployment")])
+fit_arimax <- auto.arima(train[,"Consumption"], xreg = xreg_train)
+fc_arimax <- forecast(fit_arimax, xreg = xreg_test, h = 7)
+```
+
+```{r fig-arimax-diagnostics, fig.cap="Residuals and Forecast - ARIMAX (Income + Unemployment)", echo=FALSE, fig.show='hold', out.width='49%'}
+tsdisplay(residuals(fit_arimax), main = "Residuals from ARIMAX")
+autoplot(fc_arimax) +
+  autolayer(test[,"Consumption"], series = "Actual") +
+  labs(title = "Forecast using ARIMAX (Income + Unemployment)", y = "Consumption", x = "Time") +
+  theme_minimal()
+```
+
+The dynamic regression model uses Income and Unemployment as regressors while implementing an ARIMA(1,1,1)(0,0,1)[4] structure for error modeling which automatically detects both explanatory and seasonal components. The model shows well-behaved residuals and strong forecast performance and the external regressors improve the accuracy. The ARIMAX specification among all models tested provides the best balance of accuracy and interpretability with the lowest test RMSE (0.24) and MAE (0.17) which indicates robust out-of-sample performance.
+
+
+## 3. Model Comparison and Conclusion
+
+```{r model_comparision, echo=FALSE, results='asis', message=FALSE,  warning=FALSE}
+library(knitr)
+
+comparison_table <- data.frame(
+  Model = c("ARIMA(0,0,3)", "ARIMA(3,0,0)(2,0,0)[4]", "ARIMAX(1,1,1)(0,0,1)[4]"),
+  `Test RMSE` = c(0.2401, 0.2747, 0.2374),
+  `Test MAE` = c(0.2153, 0.2482, 0.1687),
+  `Theil's U` = c(0.6391, 0.7365, 0.8030),
+  `Ljung-Box p-value` = c(0.1297, 0.8787, 0.1703)
+)
+
+kable(comparison_table, caption = "Comparison of three models")
+```
+
+The ARIMAX(1,1,1)(0,0,1)[4] model produced the lowest RMSE value of 0.237 and the lowest MAE value of 0.169 which indicates its best out-of-sample prediction accuracy. The Theil's U value of this model was slightly higher than others but it still indicates good forecast performance. The ARIMAX(1,1,1)(0,0,1)[4] model with Income and Unemployment variables should be recommended because it provides the best accuracy and economic interpretability. However, there are limitations: only two external variables were included, the models assumed linearity which may overlook complex patterns, structural breaks or shocks were not accounted for, and the static training/testing split could limit generalizability. Future improvements may involve adding more macroeconomic predictors (e.g., interest rate, inflation), exploring non-linear or machine learning approaches, and incorporating structural break detection or rolling forecast evaluations.
+
+
+<!--
+#########################################################
+### DO NOT CHANGE the code until the section 'R code' ###
+#########################################################
+-->
+
+
+\newpage
+\thispagestyle{empty}
+\begin{center}
+\Huge \bf [END of the REPORT]
+\end{center}
+
+
+\newpage
+<!-- \setcounter{pageaux}{0} -->
+<!-- \renewcommand{\thepage}{R-\arabic{page}} -->
+\resetpageaux
+\renewcommand{\thepageaux}{R-\arabic{pageaux}}
+
+
+# R code
+
+<!--
+#########################################################
+###              Start typing from here               ###
+#########################################################
+-->
+# Question 1: Consumption Time Series Analysis
+
+## (a) Data Splitting
+
+```{r data-setup, include=FALSE}
+library(fpp2)
+library(forecast)
+library(tseries)
+library(ggplot2)
+library(dplyr)
+```
+
+```{r load-data}
+# Load the uschange dataset from fpp2 package
+data("uschange")
+```
+
+```{r data-split}
+# Split the dataset into training (1970 Q1 to 2014 Q4) and test (2015 Q1 to 2016 Q3)
+train <- window(uschange, end=c(2014,4))
+test  <- window(uschange, start=c(2015,1))
+```
+
+## (b) Exploratory Data Analysis (EDA)
+
+```{r eda-summary}
+# Summary statistics of training data
+summary(train)
+```
+
+```{r eda-missing-values}
+# Check for missing values
+colSums(is.na(train))
+```
+
+```{r eda-plot-consumption}
+# Visualizing Consumption over time
+train_df <- as.data.frame(train)  # Convert ts to data frame for ggplot
+train_df$Date <- time(train)      # Add time column for plotting
+
+ggplot(train_df, aes(x = Date, y = Consumption)) +
+  geom_point(color = "steelblue") +
+  labs(title = "Quarterly US Consumption Over Time") +
+  theme_bw() +
+  theme(axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12),
+        title = element_text(size = 16))
+```
+
+```{r eda-aggregate-income}
+# Visualizing average Income over time
+# Although ts is evenly spaced, we emulate the behavior of previous project EDA
+
+ggplot(train_df, aes(x = Date, y = Income)) +
+  geom_point(color = "darkgreen") +
+  labs(title = "Quarterly US Income Over Time") +
+  theme_bw() +
+  theme(axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12),
+        title = element_text(size = 16))
+```
+
+```{r eda-correlation}
+# Calculate correlation matrix to assess variable relationships
+cor(train)
+```
+
+```{r eda-acf-pacf}
+# ACF and PACF plots to assess autocorrelation and potential ARIMA components
+tsdisplay(train[, "Consumption"], main = "Consumption Time Series Diagnostics")
+```
+
+
+## (c) Model Fitting and Forecasting
+
+### 1) Model Selection: ARIMA(0,0,3)
+
+```{r fit-arima_003}
+# Fit ARIMA(0,0,3) model (pure MA(3) model)
+fit_ma3 <- Arima(train[,"Consumption"], order = c(0, 0, 3))
+
+# Display model summary: coefficients, AIC, etc.
+summary(fit_ma3)
+
+# Check if residuals are white noise (no autocorrelation)
+checkresiduals(fit_ma3)
+```
+
+```{r forecast-arima_003}
+# Forecast 7 steps ahead (to match test set)
+fc_ma3 <- forecast(fit_ma3, h = 7)
+
+# Plot forecast with actual test values
+autoplot(fc_ma3) +
+  autolayer(test[,"Consumption"], series = "Actual") +
+  labs(title = "Forecast using ARIMA(0,0,3) (MA(3)) model",
+       y = "Consumption", x = "Time") +
+  theme_minimal()
+```
+```{r accuracy-arima_003}
+# Compare forecast to test set
+accuracy(fc_ma3, test[,"Consumption"])
+```
+
+
+### 2) Model Selection: ARIMA(3,0,0)(2,0,0)[4]
+
+```{r fit-ARIMA_300_200_4}
+# Fit an ARIMA model automatically selected by AICc
+fit_auto <- auto.arima(train[,"Consumption"])
+
+# Display summary of the automatically selected model
+summary(fit_auto)
+
+# Residual diagnostics: check whether residuals are uncorrelated and normally distributed
+checkresiduals(fit_auto)
+```
+
+
+```{r forecast-ARIMA_300_200_4}
+# Forecast 7 steps ahead using the auto.arima model
+fc_auto <- forecast(fit_auto, h = 7)
+
+# Plot forecast and overlay actual test values
+autoplot(fc_auto) +
+  autolayer(test[,"Consumption"], series = "Actual") +
+  labs(title = "Forecast from auto.arima Model",
+       y = "Consumption", x = "Time") +
+  theme_minimal()
+```
+```{r accuracy-ARIMA_300_200_4}
+# Evaluate forecast accuracy against the test set
+accuracy(fc_auto, test[,"Consumption"])
+```
+
+### 3) Model Selection: Regression with ARIMA(1,1,1)(0,0,1)[4] Errors
+
+```{r fit-ARIMAX}
+# Fit ARIMA model with external regressors: Income and Unemployment
+# This is a dynamic regression model with ARIMA errors
+xreg_train <- as.matrix(train[, c("Income", "Unemployment")])
+xreg_test <- as.matrix(test[, c("Income", "Unemployment")])
+
+fit_arimax <- auto.arima(train[,"Consumption"], xreg = xreg_train)
+
+# Show model summary
+summary(fit_arimax)
+
+# Residual diagnostics
+checkresiduals(fit_arimax)
+```
+
+```{r forecast-ARIMAX}
+# Forecast next 7 quarters using test xreg data
+fc_arimax <- forecast(fit_arimax, xreg = xreg_test, h = 7)
+
+# Plot forecast with actual values
+autoplot(fc_arimax) +
+  autolayer(test[,"Consumption"], series = "Actual") +
+  labs(title = "Forecast using ARIMA with Income and Unemployment as Regressors") +
+  theme_minimal()
+```
+```{r accuracy-ARIMAX}
+# Forecast accuracy on test set
+accuracy(fc_arimax, test[,"Consumption"])
+```
