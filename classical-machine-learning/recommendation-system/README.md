@@ -37,7 +37,6 @@ Run all tests:
 
 !pytest project_tests.py
 
-
 If no errors appear, your implementation matches the expected solution.
 
 ### Project Instructions
@@ -45,55 +44,35 @@ If no errors appear, your implementation matches the expected solution.
 This project is divided into the following key parts:
 
 1. Exploratory Data Analysis (EDA)
-
-Handle missing values ("unknown_user" for null emails)
-
-Compute descriptive statistics (unique users, articles, interactions)
-
-Identify most-viewed articles
+- Handle missing values ("unknown_user" for null emails)
+- Compute descriptive statistics (unique users, articles, interactions)
+- Identify most-viewed articles
 
 2. Rank-Based Recommendations
-
-Recommend top-n most popular articles
-
-Simple yet effective for new users (cold start)
+- Recommend top-n most popular articles
+- Simple yet effective for new users (cold start)
 
 3. User-User Collaborative Filtering
-
-Build a user-item interaction matrix
-
-Compute cosine similarity between users
-
-Recommend unseen articles from similar users
+- Build a user-item interaction matrix
+- Compute cosine similarity between users
+- Recommend unseen articles from similar users
 
 4. Content-Based Recommendations
-
-Vectorize article titles with TF-IDF
-
-Apply TruncatedSVD (LSA) for dimensionality reduction
-
-Cluster articles using KMeans
-
-Recommend similar articles within the same cluster, ranked by popularity
+- Vectorize article titles with TF-IDF
+- Apply TruncatedSVD (LSA) for dimensionality reduction
+- Cluster articles using KMeans
+- Recommend similar articles within the same cluster, ranked by popularity
 
 5. Matrix Factorization (SVD)
+- Perform TruncatedSVD on the user-item matrix
+- Select number of latent features based on metric performance (e.g., 200)
+- Recommend articles with highest cosine similarity in latent space
 
-Perform TruncatedSVD on the user-item matrix
-
-Select number of latent features based on metric performance (e.g., 200)
-
-Recommend articles with highest cosine similarity in latent space
-
-### Summary
-
+## Summary
 This project demonstrates:
-
-Popularity-based recommendations for cold-start users
-
-Collaborative filtering for users with interaction history
-
-Content-based clustering using TF-IDF + KMeans
-
-Matrix factorization for latent feature discovery
+- Popularity-based recommendations for cold-start users
+- Collaborative filtering for users with interaction history
+- Content-based clustering using TF-IDF + KMeans
+- Matrix factorization for latent feature discovery
 
 These approaches can be combined into a hybrid recommender system for improved accuracy across all user scenarios.
