@@ -1,7 +1,7 @@
 import pandas as pd
 import pickle
 
-df = pd.read_csv('data/user-item-interactions.csv')
+df = pd.read_csv('../data/user-item-interactions.csv')
 
 def sol_1_test(sol_1_dict):
     sol_1_dict_ = {
@@ -31,12 +31,11 @@ def sol_2_test(top_articles):
     
     checks = ['top_5', 'top_10', 'top_20']
     for idx, file in enumerate(checks):
-        if set(eval(file)) == set(pickle.load(open( "{}.p".format(file), "rb" ))):
-            print("Your {} looks like the solution list! Nice job.".format(file))
+        if set(eval(file)) == set(pickle.load(open( "{}.p".format(file), "rb" ))): print("Your {} looks like the solution list! Nice job.".format(file))
+        
         else:
-            print("Oops! The {} list doesn't look how we expected.  Try again.".format(file))
-    
-    
+            print("Oops! The {} list doesn't look how we expected. Try again.".format(file))
+
     
 def sol_5_test(sol_5_dict):
     sol_5_dict_1 = {
