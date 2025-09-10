@@ -1,55 +1,99 @@
-# README Template
+# Recommendation System Project
 
-Below is a template provided for use when building your README file for students.
+This project builds a complete recommendation engine for article suggestions using multiple approaches: **Rank-Based Recommendations**, **User-User Collaborative Filtering**, **Content-Based Filtering**, and **Matrix Factorization (SVD)**.  
+The goal is to explore and compare different recommendation techniques for users with no history, limited history, and rich interaction history.
 
-# Project Title
-
-Project description goes here.
+---
 
 ## Getting Started
 
-Instructions for how to get a copy of the project running on your local machine.
+Follow these steps to run this project on your local machine.
 
 ### Dependencies
 
-```
-Examples here
-```
-
-### Installation
-
-Step by step explanation of how to get a dev environment running.
-
-List out the steps
-
-```
-Give an example here
+```bash
+Python >= 3.8
+pandas
+numpy
+matplotlib
+seaborn
+plotly
+scikit-learn
 ```
 
-## Testing
+### Testing
 
-Explain the steps needed to run any automated tests
+This project includes test functions to validate your implementation.
 
-### Break Down Tests
+Break Down of Tests
+sol_1_test()  # Verifies EDA outputs (unique users, articles, interactions)
+sol_2_test()  # Confirms top article retrieval (by popularity)
+sol_3_test()  # Validates user-user similarity results
+sol_4_test()  # Checks recommendations for new/cold-start users
+sol_5_test()  # Confirms matrix factorization reconstruction quality
 
-Explain what each test does and why
 
-```
-Examples here
-```
+Run all tests:
 
-## Project Instructions
+!pytest project_tests.py
 
-This section should contain all the student deliverables for this project.
 
-## Built With
+If no errors appear, your implementation matches the expected solution.
 
-* [Item1](www.item1.com) - Description of item
-* [Item2](www.item2.com) - Description of item
-* [Item3](www.item3.com) - Description of item
+### Project Instructions
 
-Include all items used to build project.
+This project is divided into the following key parts:
 
-## License
+1. Exploratory Data Analysis (EDA)
 
-[License](LICENSE.txt)
+Handle missing values ("unknown_user" for null emails)
+
+Compute descriptive statistics (unique users, articles, interactions)
+
+Identify most-viewed articles
+
+2. Rank-Based Recommendations
+
+Recommend top-n most popular articles
+
+Simple yet effective for new users (cold start)
+
+3. User-User Collaborative Filtering
+
+Build a user-item interaction matrix
+
+Compute cosine similarity between users
+
+Recommend unseen articles from similar users
+
+4. Content-Based Recommendations
+
+Vectorize article titles with TF-IDF
+
+Apply TruncatedSVD (LSA) for dimensionality reduction
+
+Cluster articles using KMeans
+
+Recommend similar articles within the same cluster, ranked by popularity
+
+5. Matrix Factorization (SVD)
+
+Perform TruncatedSVD on the user-item matrix
+
+Select number of latent features based on metric performance (e.g., 200)
+
+Recommend articles with highest cosine similarity in latent space
+
+### Summary
+
+This project demonstrates:
+
+Popularity-based recommendations for cold-start users
+
+Collaborative filtering for users with interaction history
+
+Content-based clustering using TF-IDF + KMeans
+
+Matrix factorization for latent feature discovery
+
+These approaches can be combined into a hybrid recommender system for improved accuracy across all user scenarios.
