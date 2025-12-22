@@ -1,0 +1,118 @@
+# =========================
+# OS-generated files
+# =========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# =========================
+# Python
+# =========================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+ENV/
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# =========================
+# Jupyter Notebooks
+# =========================
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+*.ipynb_checkpoints
+
+# =========================
+# IDE / Editors
+# =========================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# =========================
+# Logs and databases
+# =========================
+*.log
+*.sql
+*.sqlite
+*.db
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.local
+.env.*.local
+*.env
+
+# =========================
+# Data files (optional - uncomment if needed)
+# =========================
+# Large data files - uncomment these if you have large datasets
+# *.csv
+# *.xlsx
+# *.parquet
+# data/raw/
+# data/processed/
+
+# =========================
+# Model files (optional - uncomment if needed)
+# =========================
+# Trained model files - uncomment if you have large models
+# *.pkl
+# *.h5
+# *.pt
+# *.pth
+# models/
+
+# =========================
+# Misc
+# =========================
+*.bak
+*.tmp
+*.temp
+.cache/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
