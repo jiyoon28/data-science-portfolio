@@ -33,8 +33,6 @@ Each folder contains Jupyter notebooks, code, and documentation for projects com
 | [Bike Trip Data Insights](data-visualization-analytics/bike-tripdata-insights) | FordGoBike usage pattern analysis | pandas, matplotlib, seaborn |
 | [Global Education Insights](data-visualization-analytics/global-education-insights) | Education data analysis with SQLite and Plotly | Python, SQLite, Plotly |
 
-### Natural Language Processing
-Projects coming soon.
 
 ---
 
