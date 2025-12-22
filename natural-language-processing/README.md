@@ -1,13 +1,16 @@
-# 📝 Natural Language Processing (NLP)
+# Natural Language Processing
 
-This folder contains projects related to NLP, text mining, and large language models.
+This folder is reserved for NLP and text mining projects.
 
-## Projects
-- **Sentiment Analysis with BERT/FinBERT** → Analyzing financial news for stock trend prediction  
-- **Topic Modeling with LDA** → Extracting latent themes from text corpora  
-- **Text Classification** → Classifying documents using Naive Bayes, SVM, and Transformers  
+## Planned Projects
 
-## Skills Highlighted
-- Hugging Face Transformers, PyTorch, Scikit-learn  
-- Tokenization, embeddings, attention mechanisms  
-- Model evaluation: F1-score, Precision/Recall, Confusion Matrix
+- Sentiment analysis with transformers
+- Topic modeling and text classification
+- Named entity recognition
+
+## Skills to Highlight
+
+- Hugging Face Transformers
+- Text preprocessing and tokenization
+- Embeddings and attention mechanisms
+- Model evaluation metrics for NLP tasks

@@ -1,39 +1,17 @@
-# 📊 Data Science Portfolio
+# Time Series Forecasting
 
-Welcome to my Data Science Portfolio!  
-This repository showcases my projects in **Machine Learning, Deep Learning, NLP, Time Series Forecasting, and Data Visualization**, organized by topic.
+This folder contains projects focused on time series analysis and forecasting using both statistical and deep learning approaches.
 
-Each folder contains Jupyter notebooks, code, and documentation for projects I have completed during my MSc studies, Kaggle competitions, and self-driven research.
+## Projects
 
----
+| Project | Description | Methods |
+|---------|-------------|---------|
+| [Stock Price Forecast](stock-price-forecast) | MSc dissertation comparing forecasting models on stock data | ARIMA, LSTM, Transformer, Prophet |
+| [US Consumption Forecast](us-consumption-forecast) | Macroeconomic forecasting with external regressors | ARIMA, Seasonal ARIMA, ARIMAX |
 
-## 📂 Project Categories
+## Skills Highlighted
 
-### 📈 Time Series Forecasting
-
-- Stock price prediction (ARIMA, Prophet, LSTM, Transformer)
-- Multivariate time series with exogenous variables
-
-### 📝 Natural Language Processing (NLP)
-
-- Sentiment analysis with LLMs and transformers
-- Topic modeling and text classification
-
-### 🤖 Deep Learning
-
-- Image generation with Autoencoders & GANs
-- Neural network architectures (CNN, RNN, Transformer)
-
-### 🔢 Classical Machine Learning
-
-- Regression and classification with Scikit-learn
-- Customer churn prediction and feature engineering
-
-### 📊 Data Visualization & Analytics
-
-- Interactive dashboards (Power BI, Tableau)
-- Exploratory Data Analysis (EDA) with Python & R
-
----
-
-⭐ Explore the folders above to see detailed projects and case studies.
+- Statistical modeling: ARIMA, SARIMA, ARIMAX
+- Deep learning: LSTM, Transformer architectures
+- Walk-forward validation and forecast evaluation
+- Python (TensorFlow, Statsmodels) and R (forecast package)

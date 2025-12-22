@@ -1,47 +1,67 @@
-# Medicare Physician & Other Practitioners — EDA & ML
+# Medicare Physician Analysis
 
-**Goal**  
-Understand what drives **Avg_Mdcr_Pymt_Amt** (average Medicare payment) and build simple models to predict it, using a 50k-row sample for fast iteration.
+## Project Overview
 
-## Project Motivation
+This project analyzes the CMS "Medicare Physician and Other Practitioners" dataset to understand the factors driving Medicare payment amounts. Using a 50,000-row sample, the analysis explores relationships between provider characteristics, service utilization, and payment patterns through exploratory data analysis and predictive modeling.
 
-This project analyzes the CMS dataset **“Medicare Physician & Other Practitioners — by Provider and Service”** (50k-row sample) to answer:
+---
 
-1) Do payments differ by **place of service** (F vs O)?
-2) Who dominates by **provider type** (volume)?
-3) How do **charges, payments, and utilization** move together?
-4) Which provider types tend to have **higher payments**?
-5) Does **urban–rural context (RUCA)** relate to payments?
+## Research Questions
 
-Process: **CRISP-DM** — gather → assess → clean → analyze → model → evaluate → visualize.
+1. Do payments differ by place of service (Facility vs. Office)?
+2. Which provider types dominate by service volume?
+3. How do charges, payments, and utilization metrics correlate?
+4. Which provider specialties tend to have higher payments?
+5. Does urban-rural context (RUCA classification) relate to payment amounts?
 
-## Files in the Repository
+---
 
-- `medicare_physician_analysis.ipynb` — Main analysis notebook (EDA → modeling → what-if).
-- `data/sample_medicare_physician_small.csv.gz` — 50k-row sample used in the notebook.
-- `requirements.txt` — Reproducible environment
-- `README.md` — Project overview, results, and references.
+## Key Findings
 
+- **Payment Distribution**: Heavy right-tail skew in payments/charges; log-scale transformations reveal clearer patterns
+- **Strong Predictors**: Service utilization (Tot_Srvcs, Tot_Benes) and submitted charges drive payment amounts
+- **Specialty Impact**: Provider specialty significantly affects average payment, with surgical specialties showing higher averages
+- **Model Performance**: Random Forest provided more realistic predictions than plain Linear Regression
+
+---
+
+## Methodology
+
+This project follows the CRISP-DM framework:
+1. Data gathering and quality assessment
+2. Data cleaning and preprocessing
+3. Exploratory data analysis with visualizations
+4. Feature engineering and model training
+5. Evaluation and interpretation
+
+---
+
+## Project Structure
+
+| File | Description |
+|------|-------------|
+| medicare_physician_analysis.ipynb | Main analysis notebook (EDA, modeling, insights) |
+| requirements.txt | Python dependencies |
+
+---
+
+## Technologies Used
+
+- **Language**: Python 3.x
+- **Libraries**: pandas, numpy, matplotlib, seaborn, scikit-learn
+- **Techniques**: EDA, Random Forest, Linear Regression
+- **Framework**: CRISP-DM
+
+---
 
 ## Dataset
-- **Source:** [CMS Provider Data](https://data.cms.gov/provider-summary-by-type-of-service/medicare-physician-other-practitioners/medicare-physician-other-practitioners-by-provider-and-service)
-- **Format:** CSV
-- **Size:** Large (~millions of rows)
 
-**Key features used**
-- Numeric: `Tot_Srvcs`, `Tot_Benes`, `Tot_Bene_Day_Srvcs`, `Avg_Sbmtd_Chrg`
-- Categorical: `Rndrng_Prvdr_Type`, `Place_Of_Srvc`
-- (Avoid leakage): do **not** feed `Avg_Mdcr_Alowd_Amt`, `Avg_Mdcr_Stdzd_Amt` into the model
+- **Source**: [CMS Provider Data](https://data.cms.gov/provider-summary-by-type-of-service/medicare-physician-other-practitioners/medicare-physician-other-practitioners-by-provider-and-service)
+- **Sample Size**: 50,000 rows
+- **Key Features**: Tot_Srvcs, Tot_Benes, Avg_Sbmtd_Chrg, Rndrng_Prvdr_Type, Place_Of_Srvc
 
+---
 
+## Related Publication
 
-## Results Summary
-- Skewed payments/charges: heavy right tail → log-scale visuals help.
-
-- Strong drivers: utilization (Tot_Srvcs, Tot_Benes) and Avg_Sbmtd_Chrg; specialty/place matter.
-
-- Models: Random Forest provided more realistic predictions than plain Linear Regression on raw target.
-
-**Blog post:** 
-https://medium.com/@moonjiyoon23/who-moves-medicare-spending-da750b090e69
-
+[Medium Blog Post: Who Moves Medicare Spending?](https://medium.com/@moonjiyoon23/who-moves-medicare-spending-da750b090e69)

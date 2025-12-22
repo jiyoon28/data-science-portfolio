@@ -1,78 +1,69 @@
-# Recommendation System Project
+# Recommendation System
 
-This project builds a complete recommendation engine for article suggestions using multiple approaches: **Rank-Based Recommendations**, **User-User Collaborative Filtering**, **Content-Based Filtering**, and **Matrix Factorization (SVD)**.  
-The goal is to explore and compare different recommendation techniques for users with no history, limited history, and rich interaction history.
+## Project Overview
+
+This project builds a complete recommendation engine for article suggestions using multiple approaches. The system addresses different user scenarios from cold-start (new users) to users with rich interaction history, demonstrating the strengths and trade-offs of various recommendation techniques.
 
 ---
 
-## Getting Started
+## Recommendation Approaches
 
-Follow these steps to run this project on your local machine.
+| Approach | Use Case | Method |
+|----------|----------|--------|
+| Rank-Based | Cold-start users | Recommend most popular articles |
+| User-User Collaborative Filtering | Users with history | Find similar users, recommend their unseen articles |
+| Content-Based Filtering | Item similarity | TF-IDF vectorization + KMeans clustering |
+| Matrix Factorization (SVD) | Latent features | TruncatedSVD on user-item matrix |
 
-### Dependencies
+---
+
+## Key Findings
+
+- **Cold Start Solution**: Popularity-based recommendations effectively serve new users with no interaction history
+- **Collaborative Filtering**: Users with similar reading patterns benefit most from user-user similarity recommendations
+- **Content Clustering**: TF-IDF combined with KMeans successfully groups thematically related articles
+- **Latent Features**: Matrix factorization with 200 latent dimensions achieved optimal recommendation quality
+
+---
+
+## Methodology
+
+1. **Exploratory Data Analysis**: Handle missing values, compute descriptive statistics, identify popular articles
+2. **Rank-Based Recommendations**: Recommend top-n most viewed articles for new users
+3. **User-User Collaborative Filtering**: Build user-item matrix, compute cosine similarity between users
+4. **Content-Based Filtering**: Vectorize article titles with TF-IDF, apply dimensionality reduction (LSA), cluster with KMeans
+5. **Matrix Factorization**: Perform TruncatedSVD, recommend articles with highest cosine similarity in latent space
+
+---
+
+## Project Structure
+
+| Path | Description |
+|------|-------------|
+| src/ | Implementation notebooks and test files |
+| data/ | User-article interaction data |
+
+---
+
+## Technologies Used
+
+- **Language**: Python 3.8+
+- **Libraries**: pandas, numpy, scikit-learn, matplotlib, seaborn, plotly
+- **Techniques**: Collaborative Filtering, Content-Based Filtering, TF-IDF, SVD, KMeans Clustering
+
+---
+
+## Testing
+
+The project includes validation tests for each recommendation approach:
 
 ```bash
-Python >= 3.8
-pandas
-numpy
-matplotlib
-seaborn
-plotly
-scikit-learn
+pytest project_tests.py
 ```
 
-### Testing
-
-This project includes test functions to validate your implementation.
-
-Break Down of Tests
-sol_1_test()  # Verifies EDA outputs (unique users, articles, interactions)
-sol_2_test()  # Confirms top article retrieval (by popularity)
-sol_3_test()  # Validates user-user similarity results
-sol_4_test()  # Checks recommendations for new/cold-start users
-sol_5_test()  # Confirms matrix factorization reconstruction quality
-
-
-Run all tests:
-
-!pytest project_tests.py
-
-If no errors appear, your implementation matches the expected solution.
-
-### Project Instructions
-
-This project is divided into the following key parts:
-
-1. Exploratory Data Analysis (EDA)
-- Handle missing values ("unknown_user" for null emails)
-- Compute descriptive statistics (unique users, articles, interactions)
-- Identify most-viewed articles
-
-2. Rank-Based Recommendations
-- Recommend top-n most popular articles
-- Simple yet effective for new users (cold start)
-
-3. User-User Collaborative Filtering
-- Build a user-item interaction matrix
-- Compute cosine similarity between users
-- Recommend unseen articles from similar users
-
-4. Content-Based Recommendations
-- Vectorize article titles with TF-IDF
-- Apply TruncatedSVD (LSA) for dimensionality reduction
-- Cluster articles using KMeans
-- Recommend similar articles within the same cluster, ranked by popularity
-
-5. Matrix Factorization (SVD)
-- Perform TruncatedSVD on the user-item matrix
-- Select number of latent features based on metric performance (e.g., 200)
-- Recommend articles with highest cosine similarity in latent space
-
-## Summary
-This project demonstrates:
-- Popularity-based recommendations for cold-start users
-- Collaborative filtering for users with interaction history
-- Content-based clustering using TF-IDF + KMeans
-- Matrix factorization for latent feature discovery
-
-These approaches can be combined into a hybrid recommender system for improved accuracy across all user scenarios.
+Test coverage includes:
+- EDA outputs verification
+- Top article retrieval validation
+- User-user similarity results
+- Cold-start user recommendations
+- Matrix factorization reconstruction quality

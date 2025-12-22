@@ -1,33 +1,66 @@
-# Global-Education-Insights
+# Global Education Insights
 
-End-to-end Python & SQLite workflow for analysing worldwide education data and its links to gender, proficiency, and socioeconomic indicators.
+## Project Overview
 
----
-
-## 1 What the code does
-
-1. **Create & populate a relational database**
-
-   - Builds five tables (`countries`, `out_of_school_rates`, `completion_rates`, `education_proficiency`, `social_indicators`) in **SQLite**.
-   - Loads the original _Global_Education.csv_ → cleans column names → inserts into each table.
-
-2. **Data cleaning & quality checks**
-
-   - Verifies dtypes, missing values, duplicates, country-name typos.
-   - Examines outliers with boxplots and an IQR method; keeps full sample but drops rows with ≥ 15 zero values.
-
-3. **Exploratory Data Analysis (EDA)**
-
-   - **Gender completion gap** – bar chart by primary / lower-sec / upper-sec.
-   - **Reading ↔ Math proficiency** – correlation heatmap across stages.
-   - **Tertiary enrolment vs birth rate** – scatter + correlation ( r ≈ −0.68).
-   - **Choropleths** – Plotly maps for tertiary enrolment, birth rate, and unemployment.
+This project analyzes worldwide education data and its relationships with gender, proficiency levels, and socioeconomic indicators. Using Python and SQLite, the analysis explores patterns in educational outcomes across countries through database management, data quality assessment, and exploratory visualization.
 
 ---
 
-## 2 Quick start
+## Objectives
 
-```bash
-# clone and install
-git clone https://github.com/your-user/global-education-insights.git
-```
+- Build a relational database structure for education data
+- Analyze gender gaps in educational completion rates
+- Examine correlations between reading and math proficiency
+- Explore relationships between education and socioeconomic factors
+
+---
+
+## Key Findings
+
+- **Gender Gap**: Completion rate disparities exist between genders, varying by education level (primary, lower-secondary, upper-secondary)
+- **Proficiency Correlation**: Strong positive correlation between reading and math proficiency scores across educational stages
+- **Tertiary Education**: Negative correlation (r = -0.68) between tertiary enrollment and birth rate
+- **Regional Patterns**: Choropleth maps reveal geographic clusters in tertiary enrollment, birth rates, and unemployment
+
+---
+
+## Database Structure
+
+The SQLite database consists of five normalized tables:
+
+| Table | Description |
+|-------|-------------|
+| countries | Country names and identifiers |
+| out_of_school_rates | Out-of-school percentages by education level |
+| completion_rates | Completion rates by gender and level |
+| education_proficiency | Reading and math proficiency scores |
+| social_indicators | Birth rate, unemployment, tertiary enrollment |
+
+---
+
+## Methodology
+
+1. **Database Creation**: Build and populate SQLite tables from Global_Education.csv
+2. **Data Cleaning**: Verify dtypes, handle missing values, remove duplicates, fix country-name typos
+3. **Outlier Analysis**: Boxplots and IQR method for outlier detection
+4. **Exploratory Analysis**: Bar charts, correlation heatmaps, scatter plots
+5. **Geographic Visualization**: Plotly choropleth maps for key indicators
+
+---
+
+## Project Structure
+
+| Path | Description |
+|------|-------------|
+| src/global-education-insights-code.ipynb | Main analysis notebook |
+| src/global-education-insights-report.pdf | Detailed findings report |
+| data/ | Global education dataset |
+
+---
+
+## Technologies Used
+
+- **Language**: Python 3.x
+- **Database**: SQLite
+- **Libraries**: pandas, numpy, matplotlib, seaborn, plotly
+- **Visualization**: Choropleth maps, correlation heatmaps, bar charts

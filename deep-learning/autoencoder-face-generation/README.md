@@ -1,33 +1,59 @@
-# autoencoder-face-generation
+# Autoencoder Face Generation
 
-This single-notebook pipeline implements end-to-end face generation and editing using PyTorch and Hugging Face Diffusers:
+## Project Overview
 
-1. **Data Loading & Transforms**
+This project implements end-to-end face generation and editing using deep learning techniques. The pipeline demonstrates Variational Autoencoder (VAE) training on the CelebA dataset, with applications including random face sampling, latent space interpolation, and masked face sharpening using Stable Diffusion.
 
-   - Streams the CelebA dataset, applies resize, crop, flip, tensor conversion, and normalization.
+---
 
-2. **Variational Autoencoder (VAE)**
+## Pipeline Components
 
-   - Encoder: four Conv2d layers down to a 512×8×8 feature map.
-   - Latent heads: linear layers for μ and log-variance.
-   - Decoder: linear projection + four ConvTranspose2d layers back to 128×128 images.
+| Stage | Description |
+|-------|-------------|
+| Data Loading | CelebA dataset streaming with resize, crop, flip, and normalization |
+| VAE Architecture | Encoder-decoder with latent space for generative modeling |
+| Training | Combined MSE reconstruction loss + KL divergence optimization |
+| Random Sampling | Generate new faces from Gaussian prior |
+| Latent Interpolation | Smooth morphing between encoded faces |
+| Face Sharpening | Masked diffusion enhancement for facial details |
 
-3. **Training Loop**
+---
 
-   - Optimizes combined MSE reconstruction loss + KL divergence over multiple epochs and mini-batches.
-   - Logs per-batch and per-epoch Total, Recon, and KLD losses.
+## Model Architecture
 
-4. **Random Sampling**
+**Encoder**:
+- Four Conv2d layers compressing to 512x8x8 feature map
+- Linear layers for mean (mu) and log-variance heads
 
-   - Samples from Gaussian prior N(0,I), decodes to faces, and visualizes in an 8×8 grid.
+**Decoder**:
+- Linear projection from latent space
+- Four ConvTranspose2d layers reconstructing 128x128 images
 
-5. **Latent-Space Interpolation**
+**Loss Function**: MSE Reconstruction + KL Divergence
 
-   - Linearly blends between two encoded face vectors over N steps and decodes each to show smooth morphing.
+---
 
-6. **Masked Face Sharpening**
-   - Generates a central-face mask and applies:
-     - **UnsharpMask** via PIL for quick sharpening.
-     - **Stable Diffusion Img2Img** only inside the mask for stronger detail.
+## Key Results
 
-The masked diffusion sharpening achieves the most visually crisp facial details with minimal background change.
+- **Random Generation**: VAE successfully generates diverse, realistic face samples from Gaussian noise
+- **Smooth Interpolation**: Linear blending in latent space produces natural morphing transitions between faces
+- **Face Sharpening**: Masked Stable Diffusion Img2Img achieves the sharpest facial details with minimal background artifacts
+
+---
+
+## Project Structure
+
+| File | Description |
+|------|-------------|
+| autoencoder-face-generation-code.ipynb | Complete implementation notebook |
+| autoencoder-face-generation.pdf | Technical report with results |
+
+---
+
+## Technologies Used
+
+- **Language**: Python 3.x
+- **Framework**: PyTorch
+- **Libraries**: Hugging Face Diffusers, PIL, torchvision
+- **Dataset**: CelebA (Celebrity Faces Attributes)
+- **Techniques**: Variational Autoencoder, Latent Space Interpolation, Stable Diffusion Img2Img

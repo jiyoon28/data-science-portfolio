@@ -1,39 +1,53 @@
-# 📊 Data Science Portfolio
+# Data Science Portfolio
 
-Welcome to my Data Science Portfolio!  
-This repository showcases my projects in **Machine Learning, Deep Learning, NLP, Time Series Forecasting, and Data Visualization**, organized by topic.
+Welcome to my Data Science Portfolio. This repository showcases projects in Machine Learning, Deep Learning, NLP, Time Series Forecasting, and Data Visualization, organized by topic.
 
-Each folder contains Jupyter notebooks, code, and documentation for projects I have completed during my MSc studies, Kaggle competitions, and self-driven research.
-
----
-
-## 📂 Project Categories
-
-### 📈 Time Series Forecasting
-
-- Stock price prediction (ARIMA, Prophet, LSTM, Transformer)
-- Multivariate time series with exogenous variables
-
-### 📝 Natural Language Processing (NLP)
-
-- Sentiment analysis with LLMs and transformers
-- Topic modeling and text classification
-
-### 🤖 Deep Learning
-
-- Image generation with Autoencoders & GANs
-- Neural network architectures (CNN, RNN, Transformer)
-
-### 🔢 Classical Machine Learning
-
-- Regression and classification with Scikit-learn
-- Customer churn prediction and feature engineering
-
-### 📊 Data Visualization & Analytics
-
-- Interactive dashboards (Power BI, Tableau)
-- Exploratory Data Analysis (EDA) with Python & R
+Each folder contains Jupyter notebooks, code, and documentation for projects completed during my MSc studies at Queen Mary University of London and self-driven research.
 
 ---
 
-⭐ Explore the folders above to see detailed projects and case studies.
+## Project Categories
+
+### Time Series Forecasting
+| Project | Description | Technologies |
+|---------|-------------|--------------|
+| [Stock Price Forecast](time-series-forecasting/stock-price-forecast) | Comparative analysis of ARIMA, LSTM, Transformer, and Prophet | Python, TensorFlow, Statsmodels |
+| [US Consumption Forecast](time-series-forecasting/us-consumption-forecast) | ARIMA and ARIMAX models for macroeconomic forecasting | R, forecast |
+
+### Deep Learning
+| Project | Description | Technologies |
+|---------|-------------|--------------|
+| [Autoencoder Face Generation](deep-learning/autoencoder-face-generation) | VAE for face generation with latent space interpolation | PyTorch, Hugging Face Diffusers |
+
+### Classical Machine Learning
+| Project | Description | Technologies |
+|---------|-------------|--------------|
+| [Bank Churn Prediction](classical-machine-learning/bank-churn-prediction) | From-scratch ML algorithms for customer churn | NumPy, pandas |
+| [California Housing Prices](classical-machine-learning/california-housing-prices) | Regression analysis with feature engineering | scikit-learn |
+| [Medicare Physician Analysis](classical-machine-learning/medicare-physician-analysis) | EDA and predictive modeling on CMS provider data | pandas, scikit-learn |
+| [Recommendation System](classical-machine-learning/recommendation-system) | Collaborative filtering and matrix factorization | scikit-learn, NumPy |
+
+### Data Visualization and Analytics
+| Project | Description | Technologies |
+|---------|-------------|--------------|
+| [Bike Trip Data Insights](data-visualization-analytics/bike-tripdata-insights) | FordGoBike usage pattern analysis | pandas, matplotlib, seaborn |
+| [Global Education Insights](data-visualization-analytics/global-education-insights) | Education data analysis with SQLite and Plotly | Python, SQLite, Plotly |
+
+### Natural Language Processing
+Projects coming soon.
+
+---
+
+## Technical Skills
+
+- **Languages**: Python, R, SQL
+- **ML/DL Frameworks**: scikit-learn, TensorFlow, PyTorch, Hugging Face
+- **Data Analysis**: pandas, NumPy, Statsmodels
+- **Visualization**: matplotlib, seaborn, Plotly, Tableau
+- **Databases**: SQLite, PostgreSQL
+
+---
+
+## Contact
+
+Feel free to explore the projects and reach out for collaboration opportunities.

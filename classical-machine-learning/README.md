@@ -1,13 +1,20 @@
-# 🔢 Classical Machine Learning
+# Classical Machine Learning
 
 This folder contains projects applying fundamental ML algorithms to real-world problems.
 
 ## Projects
-- **Customer Churn Prediction** → Feature engineering, model building (Random Forest, XGBoost)  
-- **Housing Price Prediction** → Regression analysis with multiple datasets  
-- **Classification Tasks** → Logistic regression, SVM, KNN, ensemble models  
+
+| Project | Description | Methods |
+|---------|-------------|---------|
+| [Bank Churn Prediction](bank-churn-prediction) | From-scratch implementation of classification algorithms | Logistic Regression, SVM, KNN, Decision Tree, SMOTE |
+| [California Housing Prices](california-housing-prices) | Regression analysis with feature engineering | Linear Regression, Random Forest |
+| [Medicare Physician Analysis](medicare-physician-analysis) | EDA and predictive modeling on CMS provider data | Random Forest, Linear Regression |
+| [Recommendation System](recommendation-system) | Article recommendation engine with multiple approaches | Collaborative Filtering, Content-Based, SVD |
 
 ## Skills Highlighted
-- Scikit-learn, XGBoost, LightGBM  
-- Model selection, hyperparameter tuning  
+
+- Algorithm implementation from scratch (NumPy)
+- scikit-learn, XGBoost pipelines
+- Model selection and hyperparameter tuning
 - Cross-validation and feature importance analysis
+- Handling class imbalance with SMOTE

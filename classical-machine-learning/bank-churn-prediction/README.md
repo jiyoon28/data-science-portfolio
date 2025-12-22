@@ -1,27 +1,62 @@
-# Bank-Customer-Churn-Prediction
+# Bank Customer Churn Prediction
 
-End-to-end Python workflow that cleans a **bank-churn dataset**, performs extensive
-EDA, and benchmarks five machine-learning models:
+## Project Overview
 
-1. Logistic Regression + L2 (with grid-search & ROC)
-2. K-Nearest Neighbours (grid-search for _k_)
-3. Support Vector Machine (hinge-loss, hand-coded SGD, grid-search for _C_)
-4. Decision Tree (grid-search for max depth, feature-importance + confusion matrix)
-5. Decision Tree + **SMOTE** oversampling to handle class imbalance
+This project implements an end-to-end machine learning pipeline to predict customer churn in the banking sector. All classification algorithms are built from scratch using NumPy, demonstrating the complete mathematical foundations from data preprocessing through model evaluation.
 
-All algorithms are implemented **from scratch in NumPy**, showcasing the full
-mathematical pipeline—from data standardisation to gradient descent and
-cross-validation—without relying on scikit-learn.
+---
+
+## Objectives
+
+- Build binary classification models to predict customer churn
+- Implement core ML algorithms without using scikit-learn
+- Address class imbalance using SMOTE oversampling
+- Compare model performance across multiple algorithms
+
+---
+
+## Key Findings
+
+- **Class Imbalance**: The dataset exhibits significant class imbalance with churned customers being the minority class
+- **Feature Importance**: Credit score, age, and account balance are strong predictors of churn
+- **Model Comparison**: SVM and Decision Tree achieved highest ROC-AUC scores among tested models
+- **SMOTE Impact**: Oversampling improved recall for the minority class while maintaining precision
+
+---
+
+## Models Implemented (From Scratch)
+
+| Model | Technique | Hyperparameter Tuning |
+|-------|-----------|----------------------|
+| Logistic Regression | L2 Regularization | Grid Search |
+| K-Nearest Neighbors | Distance-based classification | Optimal k selection |
+| Support Vector Machine | Hinge loss with SGD | Grid Search for C |
+| Decision Tree | Information Gain / Gini | Max depth tuning |
+| Decision Tree + SMOTE | Oversampling for imbalance | Combined tuning |
+
+---
+
+## Project Structure
+
+| Path | Description |
+|------|-------------|
+| src/bank-customer-churn-prediction.ipynb | Main implementation notebook |
+| src/bank-customer-churn-prediction.pdf | Analysis report |
+| data/bank.csv | Customer dataset (10K records, 12 features) |
+
+---
+
+## Technologies Used
+
+- **Language**: Python 3.x
+- **Libraries**: NumPy, pandas, matplotlib, seaborn
+- **Techniques**: Binary Classification, Cross-Validation, SMOTE, Grid Search
+- **Implementation**: All algorithms built from scratch (no scikit-learn)
 
 ---
 
 ## Dataset
 
-| File       | Rows × Cols | Notes                                                                                                         |
-| ---------- | ----------- | ------------------------------------------------------------------------------------------------------------- |
-| `bank.csv` | 10 k × 12   | Credit scores, age, tenure, balance, products, card flag, active flag, salary, geography, gender, churn label |
-
-Categorical fields (country, gender) are one-hot encoded; numeric fields are
-standardised.
-
----
+- **Records**: 10,000 customers
+- **Features**: Credit score, geography, gender, age, tenure, balance, number of products, credit card status, active member status, estimated salary
+- **Target**: Churn indicator (Exited)

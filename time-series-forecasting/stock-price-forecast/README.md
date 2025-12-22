@@ -1,44 +1,72 @@
-# Comparative Analysis of Stock Price Forecasting Models: ARIMA, LSTM, Transformer, and Prophet
+# Stock Price Forecasting: Comparative Analysis
 
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange.svg)](https://tensorflow.org)
-[![Statsmodels](https://img.shields.io/badge/Statsmodels-ARIMA-green.svg)](https://www.statsmodels.org/)
-[![Prophet](https://img.shields.io/badge/Prophet-Facebook-red.svg)](https://facebook.github.io/prophet/)
+## Project Overview
 
-This repository contains the full implementation and research results for comparing traditional statistical models and modern deep learning architectures in predicting stock market trends.
+This project presents a comparative analysis of traditional statistical models and modern deep learning architectures for stock price prediction. The research evaluates ARIMA, LSTM, Transformer, and Prophet models on three distinct stocks with different volatility profiles, examining performance across multiple forecast horizons.
 
-## 📌 Project Overview
-The project evaluates the predictive performance of **ARIMA**, **LSTM**, **Transformer**, and **Prophet** on three distinct stocks: **Amazon (AMZN)**, **Microsoft (MSFT)**, and **ExxonMobil (XOM)**. The study focuses on how different model architectures handle market volatility and non-linear patterns over 1-day and 3-day forecast horizons.
-
-
-
-## 🛠 Tech Stack
-- **Data Source**: Yahoo Finance (`yfinance`)
-- **Preprocessing**: Winsorization (Outlier removal), MinMaxScaler (Normalization)
-- **Models**:
-  - **ARIMA**: A statistical benchmark for linear time-series patterns.
-  - **Prophet**: An additive model designed for seasonality and trend components.
-  - **LSTM (RNN)**: Captures long-term temporal dependencies.
-  - **Transformer**: Utilizes self-attention mechanisms for global pattern recognition.
-- **Evaluation**: Walk-Forward Validation using MAE and RMSE metrics.
-
-## 📊 Key Research Findings
-1.  **Short-term Accuracy**: **ARIMA** proved to be highly effective for 1-day predictions, especially in stocks with stable trends like XOM.
-2.  **Model Stability**: While error rates generally increased with longer horizons, **LSTM and Transformer** models showed more stability (smaller error increase) for 3-day forecasts compared to Prophet and ARIMA.
-3.  **Volatility Impact**: High-volatility stocks (e.g., AMZN) posed significant challenges for all models, with deep learning models requiring more complex tuning to outperform simpler statistical baselines.
-
-
-
-## 📂 File Description
-- `stock-price-forecasting.ipynb`: Jupyter notebook containing the complete pipeline: data crawling, preprocessing, model training, and comparative visualization.
-- `stock-price-forecasting-thesis.pdf`: The full MSc dissertation (Queen Mary University of London) providing the theoretical framework and detailed discussion.
-
-
-## 📝 Dissertation Details
-- **Title**: Comparative Analysis of ARIMA, LSTM, Transformer, and Prophet Models for Stock Price Forecasting
-- **Author**: Ji Yoon Moon
-- **Institution**: Queen Mary University of London (QMUL)
-- **Supervisor**: Prof. Navid Nabijou
+This project was completed as an MSc dissertation at Queen Mary University of London.
 
 ---
-© 2025 Ji Yoon Moon. This project is for academic and research purposes.
+
+## Research Objectives
+
+- Compare predictive performance of statistical vs. deep learning approaches
+- Evaluate model robustness across stocks with different volatility profiles
+- Analyze forecast accuracy degradation over longer prediction horizons
+- Identify optimal model selection strategies for different market conditions
+
+---
+
+## Models Evaluated
+
+| Model | Type | Strengths |
+|-------|------|-----------|
+| ARIMA | Statistical | Linear patterns, short-term accuracy |
+| Prophet | Additive | Seasonality, trend decomposition |
+| LSTM | Deep Learning | Long-term temporal dependencies |
+| Transformer | Deep Learning | Self-attention, global patterns |
+
+---
+
+## Key Research Findings
+
+1. **Short-term Accuracy**: ARIMA proved highly effective for 1-day predictions, especially for stable trend stocks (XOM)
+2. **Model Stability**: LSTM and Transformer showed smaller error increases for 3-day forecasts compared to Prophet and ARIMA
+3. **Volatility Impact**: High-volatility stocks (AMZN) posed challenges for all models; deep learning required complex tuning to outperform statistical baselines
+
+---
+
+## Methodology
+
+1. **Data Collection**: Yahoo Finance API (yfinance) for AMZN, MSFT, XOM
+2. **Preprocessing**: Winsorization for outliers, MinMaxScaler normalization
+3. **Evaluation**: Walk-Forward Validation with MAE and RMSE metrics
+4. **Horizons**: 1-day and 3-day forecast comparisons
+
+---
+
+## Project Structure
+
+| File | Description |
+|------|-------------|
+| stock-price-forecasting.ipynb | Complete pipeline: data crawling, preprocessing, training, visualization |
+| stock-price-forecasting-thesis.pdf | Full MSc dissertation with theoretical framework |
+
+---
+
+## Technologies Used
+
+- **Language**: Python 3.8+
+- **Deep Learning**: TensorFlow 2.x
+- **Statistical Models**: Statsmodels (ARIMA), Prophet
+- **Data Source**: Yahoo Finance (yfinance)
+- **Evaluation**: Walk-Forward Validation, MAE, RMSE
+
+---
+
+## Academic Details
+
+- **Title**: Comparative Analysis of ARIMA, LSTM, Transformer, and Prophet Models for Stock Price Forecasting
+- **Author**: Ji Yoon Moon
+- **Institution**: Queen Mary University of London
+- **Supervisor**: Prof. Navid Nabijou

@@ -1,13 +1,17 @@
-# 🤖 Deep Learning
+# Deep Learning
 
 This folder showcases projects using advanced neural network architectures.
 
 ## Projects
-- **Convolutional VAE** → Face image generation with PyTorch  
-- **GANs** → Generative Adversarial Networks for synthetic data  
-- **Neural Network Architectures** → CNN, RNN, Transformer implementations  
+
+| Project | Description | Methods |
+|---------|-------------|---------|
+| [Autoencoder Face Generation](autoencoder-face-generation) | VAE for face generation and latent space manipulation | Variational Autoencoder, Stable Diffusion |
 
 ## Skills Highlighted
-- PyTorch, TensorFlow, Keras  
-- Autoencoders, GANs, Transformers  
-- GPU training and model deployment
+
+- PyTorch model development
+- Variational Autoencoders (VAE) architecture
+- Latent space interpolation and manipulation
+- Hugging Face Diffusers for image enhancement
+- GPU training workflows
