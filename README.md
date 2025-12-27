@@ -24,6 +24,7 @@ Each folder contains Jupyter notebooks, code, and documentation for projects com
 |---------|-------------|--------------|
 | [Bank Churn Prediction](classical-machine-learning/bank-churn-prediction) | From-scratch ML algorithms for customer churn | NumPy, pandas |
 | [California Housing Prices](classical-machine-learning/california-housing-prices) | Regression analysis with feature engineering | scikit-learn |
+| [Customer Churn Prediction](classical-machine-learning/customer-churn-prediction) | Churn prediction with SMOTE, GridSearchCV, and model comparison | scikit-learn, imbalanced-learn |
 | [Medicare Physician Analysis](classical-machine-learning/medicare-physician-analysis) | EDA and predictive modeling on CMS provider data | pandas, scikit-learn |
 | [Recommendation System](classical-machine-learning/recommendation-system) | Collaborative filtering and matrix factorization | scikit-learn, NumPy |
 
