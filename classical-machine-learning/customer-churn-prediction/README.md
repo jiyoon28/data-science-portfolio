@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project aims to predict customer churn for StreamWorks, a streaming service platform. By analyzing user behavior patterns and subscription data, we develop a machine learning model to identify customers at risk of churning, enabling proactive retention strategies.
+This project aims to predict customer churn for StreamWorks, a streaming service platform. By analyzing user behavior patterns and subscription data, we develop machine learning models to identify customers at risk of churning, enabling proactive retention strategies.
 
 ## Dataset
 
@@ -30,9 +30,11 @@ The dataset contains 1,500 user records with the following features:
 ### 1. Data Preprocessing
 
 - Handled missing values using appropriate imputation strategies
-- Numerical features: median imputation
-- Categorical features: mode imputation
-- Monthly fee: group mean based on subscription type
+  - Numerical features: median imputation
+  - Categorical features: mode imputation
+  - Monthly fee: group mean based on subscription type
+- Converted date columns to datetime format
+- Dropped rows with missing target variable
 
 ### 2. Feature Engineering
 
@@ -45,27 +47,53 @@ The dataset contains 1,500 user records with the following features:
 
 Performed hypothesis testing to understand feature-churn relationships:
 
-- **Chi-square tests** for categorical variables (gender, promotions, referral)
-- **T-test** for continuous variables (average watch hours)
+- Chi-square tests for categorical variables (gender, promotions, referral)
+- T-test for continuous variables (average watch hours)
 
-### 4. Model Development
+### 4. Handling Class Imbalance with SMOTE
 
-- **Algorithm**: Logistic Regression
-- **Feature Scaling**: StandardScaler
-- **Class Imbalance Handling**: SMOTE (Synthetic Minority Over-sampling Technique)
-- **Train/Test Split**: 80/20 with stratification
+The dataset showed significant class imbalance:
+- Before SMOTE: 917 Not Churned (0) vs 280 Churned (1) in training set
+- After SMOTE: 917 Not Churned (0) vs 917 Churned (1) - balanced classes
 
-## Key Findings
+SMOTE (Synthetic Minority Over-sampling Technique) was applied to training data only to prevent data leakage.
 
-- Class distribution shows imbalance: 76.6% retained vs 23.4% churned
-- Statistical tests indicate no significant relationship between individual categorical features and churn
-- SMOTE improves model performance on minority class (churned customers)
+### 5. Model Development and Hyperparameter Tuning
 
-## Model Evaluation Metrics
+**Logistic Regression:**
+- GridSearchCV with 5-fold cross-validation
+- Parameter grid: C = [0.01, 0.1, 1, 10], penalty = ['l1', 'l2']
+- Best parameters: C=0.01, penalty='l2'
+- Best CV F1 Score: 0.68
+- Feature scaling with StandardScaler
 
-- Confusion Matrix
-- Precision, Recall, F1-Score
-- ROC-AUC Score
+**Random Forest:**
+- 100 estimators
+- No feature scaling required (tree-based model)
+
+## Results
+
+### Model Performance Comparison
+
+| Model | Test F1 Score | Test ROC-AUC | Accuracy |
+|-------|---------------|--------------|----------|
+| Logistic Regression | 0.33 | 0.56 | 0.73 |
+| Random Forest | 0.23 | 0.58 | - |
+
+### Classification Report (Logistic Regression)
+
+| Class | Precision | Recall | F1-Score | Support |
+|-------|-----------|--------|----------|---------|
+| Not Churned (0) | 0.79 | 0.76 | 0.78 | 230 |
+| Churned (1) | 0.31 | 0.36 | 0.33 | 70 |
+
+### Key Findings
+
+- Logistic Regression slightly outperforms Random Forest on test F1 Score
+- Both models achieve similar ROC-AUC scores (~0.56-0.58)
+- SMOTE improved model's ability to detect churned customers (36% recall vs near 0% without SMOTE)
+- High precision-recall trade-off: models favor majority class prediction
+- Class distribution shows imbalance: 76.7% retained vs 23.3% churned
 
 ## Technologies Used
 
@@ -87,11 +115,7 @@ customer-churn-prediction/
 
 ## Future Improvements
 
-- Experiment with ensemble methods (Random Forest, XGBoost)
-- Hyperparameter tuning using GridSearchCV
+- Experiment with additional ensemble methods (XGBoost, LightGBM)
+- Further hyperparameter tuning for Random Forest
 - Feature importance analysis
 - Develop customer segmentation for targeted retention strategies
-
-## Author
-
-Jiyoon Moon
