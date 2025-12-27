@@ -45,7 +45,3 @@ Each folder contains Jupyter notebooks, code, and documentation for projects com
 - **Databases**: SQLite, PostgreSQL
 
 ---
-
-## Contact
-
-Feel free to explore the projects and reach out for collaboration opportunities.
