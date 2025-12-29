@@ -129,12 +129,45 @@ sales-customer-behaviour-insights/
 └── README.md
 ```
 
-## Business Recommendations
+## Business Insights
 
-1. **Logistics Optimization**: Address the 39% delivery delay rate, particularly in East and North regions
-2. **Category Strategy**: Leverage Cleaning category success; investigate Personal Care underperformance
-3. **Customer Retention**: Develop targeted programs for Gold tier customers who drive majority of orders
-4. **Product Portfolio**: Review flagged underperforming products for discontinuation or repositioning
+### Regional Performance
+- South region leads revenue ($49,732) with 6% gap over North ($46,778)
+- Opportunity to replicate South region success factors in underperforming regions
+
+### Category Analysis
+- Cleaning category drives 39% of total revenue - prioritize inventory and supplier relationships
+- Personal Care underperforms despite similar discount rates - potential product-market fit issues
+
+### Delivery Performance
+- 39% delivery delay rate represents significant customer satisfaction risk
+- Uniform delays across regions suggest systemic logistics issues, not regional problems
+
+### Customer Loyalty
+- Gold tier customers are highly engaged and drive majority of orders
+- Bronze-to-Silver conversion represents significant growth opportunity
+
+### Payment Preferences
+- Credit Card dominates across all tiers (45-67%)
+- Bank Transfer usage (24-29%) may indicate B2B segment requiring separate strategy
+
+### Discount Effectiveness
+- Consistent discount rates (7.6%-8.7%) across categories with varying revenue outcomes
+- Current uniform discounting strategy may be inefficient
+
+### Underperforming Products
+- 4 products identified with low volume, high discounts, and elevated delay rates
+- Recommend discontinuation review or supply chain investigation
+
+## Strategic Recommendations
+
+| Priority | Action | Expected Impact |
+|----------|--------|-----------------|
+| High | Address 39% delivery delay rate | Customer retention improvement |
+| High | Protect Gold tier customer experience | Revenue protection |
+| Medium | Review underperforming products | Cost reduction |
+| Medium | Optimize discount strategy | Margin improvement |
+| Low | Expand North/Central region marketing | Revenue growth |
 
 ## How to Run
 
